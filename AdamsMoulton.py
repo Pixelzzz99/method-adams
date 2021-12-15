@@ -1,6 +1,6 @@
 import numpy as np 
-from matplotlib import pyplot as plt
-from matplotlib.patches import Patch
+# from matplotlib import pyplot as plt
+# from matplotlib.patches import Patch
 
 def f(t, y):
     return (t-3.2)*y + 8 * t * np.exp((t-3.2)**2/2) * np.cos(4*t**2)
@@ -58,6 +58,7 @@ def AdamsMoulton(t0, y0, tn, n):
 
     # Calculate RungeKutta4
     y[0:3] = RungeKutta4(t0, y0, t0+2*h, 2)
+    print(y[0:3])
     K1 = f(t[1], y[1])
     K2 = f(t[0], y[0])
     for k in range(2, n):
@@ -79,18 +80,20 @@ def main():
     tn = 6
     y0 = 0.75
     t = np.linspace(0, tn, n+1)
-    yb = BackwardEuler(t0, y0, tn, n)
-    ypc = AdamsMoulton(t0, y0, tn, n)
-    plt.figure(fg)
-    plt.plot(t, yb, 'red', label='Backward Euler')
-    plt.plot(t, ypc, 'black', label='Predictor/Corrector 3/4')
-    t = np.linspace(0, tn, 401)
-    ysol = solution(t, t0, y0)
-    plt.plot(t, ysol, color="green", label='Exact')
-    plt.title('n = %d' % n)
-    plt.axis([0, tn, -60, 40])
-    plt.legend(loc='lower left')
-    plt.show()
+    yb = AdamsMoulton(t0, y0, tn, n)
+    for i in range(0, n+1):
+        print('%.15f' % yb[i])
+    # ypc = AdamsMoulton(t0, y0, tn, n)
+    # plt.figure(fg)
+    # plt.plot(t, yb, 'red', label='Backward Euler')
+    # plt.plot(t, ypc, 'black', label='Predictor/Corrector 3/4')
+    # t = np.linspace(0, tn, 401)
+    # ysol = solution(t, t0, y0)
+    # plt.plot(t, ysol, color="green", label='Exact')
+    # plt.title('n = %d' % n)
+    # plt.axis([0, tn, -60, 40])
+    # plt.legend(loc='lower left')
+    # plt.show()
 
 if __name__ == '__main__':
     main()
