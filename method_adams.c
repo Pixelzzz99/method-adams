@@ -77,17 +77,17 @@ double* backwardEuler(double t0, double tn, double y0, double n)
 double* RungeKutta4(double t0, double tn, double y0, double n)
 {
     double h = abs(tn - t0) / n;
-    double* t = linspace(0, tn, n);
+    double* t = linspace(0, tn, n+1);
     double* y = zeros(n+1);
     y[0] = y0;
 
     for (int i = 0; i < n; i++)
     {
-        double k1 = h * f(t[i], y[i]);
-        double k2 = h * f(t[i] + h/2, y[i] + k1/2);
-        double k3 = h * f(t[i] + h/2, y[i] + k2/2);
-        double k4 = h * f(t[i] + h, y[i] + k3);
-        y[i+1] = y[i] + (k1 + 2*k2 + 2*k3 + k4) / 6;
+        double k1 = f(t[i], y[i]);
+        double k2 = f(t[i] + h/2, y[i] + h/2 * k1);
+        double k3 = f(t[i] + h/2, y[i] + h/2 * k2);
+        double k4 = f(t[i] + h, y[i] + h * k3);
+        y[i+1] = y[i] + h/6 * (k1 + 2*k2 + 2*k3 + k4);
     }
     return y;
 }
@@ -102,15 +102,25 @@ double error(double* y, double* y_exact, int n)
     return sqrt(error);
 }
 
-double* AdamsMoulton(double t0, double y0, double tn, double n)
+double* AdamsMoulton(double t0, double tn, double y0, double n)
 {
     double h = abs(tn - t0) / n;
     double* t = linspace(0, tn, n);
     double* y = zeros(n+1);
-    y[0] = RungeKutta4(t0, y0, t0 + 2*h, 2);
-    y[1] = RungeKutta4(t0, y0, t0 + 2*h, 2);
-    y[2] = RungeKutta4(t0, y0, t0 + 2*h, 2);
-    printf('%0.15f %0.15f %0.15f', y[0], y[1], y[2]);
+
+    double* temp = RungeKutta4(t0, t0+2*h, y0, n);
+    // print temp array
+    for (int i = 0; i < n; i++)
+    {
+        printf("%f \t", temp[i]);
+    }
+
+    y[0] = temp[0];
+    y[1] = temp[1];
+    y[2] = temp[2];
+
+    printf("%0.15f %0.15f %0.15f \n", y[0], y[1], y[2]);
+
     return y;
 }
 
@@ -122,9 +132,9 @@ int main()
     double y0 = 0.75;
     double* t = linspace(0, tn, n);
     double* y = AdamsMoulton(t0, tn, y0, n);
-    for (int i = 0; i < n; i++)
-    {
-        printf("%0.15f \n", y[i]);
-    }
+    /*for (int i = 0; i < n; i++)*/
+    /*{*/
+        /*printf("%0.15f \n", y[i]);*/
+    /*}*/
     return 0;
 }
