@@ -39,9 +39,7 @@ def BackwardEuler(t0, y0, tn, n):
 def RungeKutta4(t0, y0, tn, n):
     h = abs(tn-t0)/n
     t = np.linspace(0, tn, n+1)
-    print(t)
     y = np.zeros(n+1)
-    print(y)
     y[0] = y0
 
     for i in range(0, n):
@@ -52,6 +50,7 @@ def RungeKutta4(t0, y0, tn, n):
         y[i+1] = y[i] + h/6 * (K1 + 2*K2 + 2*K3 + K4)
     return y
 
+
 # AdamsMoulton corrector
 def AdamsMoulton(t0, y0, tn, n):
     h = abs(tn-t0)/n
@@ -59,7 +58,6 @@ def AdamsMoulton(t0, y0, tn, n):
     y = np.zeros(n+1)
     # Calculate RungeKutta4
     temp = RungeKutta4(t0, y0, tn+2*h, n)
-    print(temp)
     y[0:3] = RungeKutta4(t0, y0, t0+2*h, 2)
     
     print(y[0:3])
@@ -85,8 +83,8 @@ def main():
     y0 = 0.75
     t = np.linspace(0, tn, n+1)
     yb = AdamsMoulton(t0, y0, tn, n)
-    # for i in range(0, n+1):
-        # print('%.15f' % yb[i])
+    for i in range(0, n+1):
+        print('%.15f' % yb[i])
     # ypc = AdamsMoulton(t0, y0, tn, n)
     # plt.figure(fg)
     # plt.plot(t, yb, 'red', label='Backward Euler')

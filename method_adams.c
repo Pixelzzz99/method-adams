@@ -30,7 +30,16 @@ double* linspace(double a, double b, int n)
     double h = (b - a) / (n - 1);
     for (int i = 0; i < n; i++)
     {
-        x[i] = a + i * h;
+        x[i] = floor(100000000 * (a + i * h))/ 100000000;
+    }
+    return x;
+}
+
+double absolute(double x)
+{
+    if (x < 0)
+    {
+        return -x;
     }
     return x;
 }
@@ -47,7 +56,7 @@ double* zeros(int n)
 
 double* backwardEuler(double t0, double tn, double y0, double n)
 {
-    double h = abs(tn - t0) / n;
+    double h = absolute(tn - t0) / n;
     double* t = linspace(0, tn, n);
     double* y = zeros(n+1);
     y[0] = y0;
@@ -76,7 +85,7 @@ double* backwardEuler(double t0, double tn, double y0, double n)
 
 double* RungeKutta4(double t0, double tn, double y0, double n)
 {
-    double h = abs(tn - t0) / n;
+    double h = (tn - t0) / n;
     double* t = linspace(0, tn, n+1);
     double* y = zeros(n+1);
     y[0] = y0;
@@ -104,22 +113,30 @@ double error(double* y, double* y_exact, int n)
 
 double* AdamsMoulton(double t0, double tn, double y0, double n)
 {
-    double h = abs(tn - t0) / n;
+    double h = absolute(tn - t0) / n;
+
     double* t = linspace(0, tn, n);
     double* y = zeros(n+1);
 
-    double* temp = RungeKutta4(t0, t0+2*h, y0, n);
-    // print temp array
-    for (int i = 0; i < n; i++)
-    {
-        printf("%f \t", temp[i]);
-    }
+    double* temp = RungeKutta4(t0, tn+2*h, y0, n);
 
     y[0] = temp[0];
     y[1] = temp[1];
     y[2] = temp[2];
+    printf("%f %f %f \n", y[0], y[1], y[2]);
+    double K1 = f(t[1], y[1]);
+    double K2 = f(t[0], y[0]);
 
-    printf("%0.15f %0.15f %0.15f \n", y[0], y[1], y[2]);
+    for (int i = 2; i < n; i++)
+    {
+        double K3 = K2;
+        double K4 = K1;
+        K1 = f(t[i], y[i]);
+        
+        double K0 = f(t[i+1], y[i+1]);
+        // Adams-Moulton method
+        y[i+1] = y[i] + h/24 * (9*K0 + 19 * K1 - 5 * K2 + K3);
+    }
 
     return y;
 }
@@ -132,9 +149,9 @@ int main()
     double y0 = 0.75;
     double* t = linspace(0, tn, n);
     double* y = AdamsMoulton(t0, tn, y0, n);
-    /*for (int i = 0; i < n; i++)*/
-    /*{*/
-        /*printf("%0.15f \n", y[i]);*/
-    /*}*/
+    for (int i = 0; i < n; i++)
+    {
+    printf("%0.15f \n", y[i]);
+    }
     return 0;
 }
