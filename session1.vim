@@ -10,7 +10,7 @@ endif
 set shortmess=aoO
 argglobal
 %argdel
-$argadd .
+$argadd ./
 edit AdamsMoulton.py
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
@@ -18,10 +18,6 @@ set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 1wincmd h
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
 wincmd w
 wincmd _ | wincmd |
 split
@@ -36,14 +32,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 54 + 39) / 79)
-exe 'vert 1resize ' . ((&columns * 135 + 135) / 271)
-exe '2resize ' . ((&lines * 22 + 39) / 79)
-exe 'vert 2resize ' . ((&columns * 135 + 135) / 271)
-exe '3resize ' . ((&lines * 54 + 39) / 79)
-exe 'vert 3resize ' . ((&columns * 135 + 135) / 271)
-exe '4resize ' . ((&lines * 22 + 39) / 79)
-exe 'vert 4resize ' . ((&columns * 135 + 135) / 271)
+exe 'vert 1resize ' . ((&columns * 117 + 135) / 271)
+exe '2resize ' . ((&lines * 38 + 39) / 79)
+exe 'vert 2resize ' . ((&columns * 153 + 135) / 271)
+exe '3resize ' . ((&lines * 38 + 39) / 79)
+exe 'vert 3resize ' . ((&columns * 153 + 135) / 271)
 argglobal
 balt Figure_1.png
 setlocal fdm=manual
@@ -56,33 +49,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 83 - ((41 * winheight(0) + 27) / 54)
+let s:l = 87 - ((61 * winheight(0) + 38) / 77)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 83
-normal! 021|
-wincmd w
-argglobal
-if bufexists("term://D:/my_projects/method-adams//1776:C:/Windows/system32/cmd.exe") | buffer term://D:/my_projects/method-adams//1776:C:/Windows/system32/cmd.exe | else | edit term://D:/my_projects/method-adams//1776:C:/Windows/system32/cmd.exe | endif
-if &buftype ==# 'terminal'
-  silent file term://D:/my_projects/method-adams//1776:C:/Windows/system32/cmd.exe
-endif
-balt AdamsMoulton.py
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 1003 - ((6 * winheight(0) + 11) / 22)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1003
-normal! 017|
+keepjumps 87
+normal! 09|
 wincmd w
 argglobal
 if bufexists("method_adams.c") | buffer method_adams.c | else | edit method_adams.c | endif
@@ -100,19 +72,19 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 110 - ((30 * winheight(0) + 27) / 54)
+let s:l = 126 - ((16 * winheight(0) + 19) / 38)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 110
-normal! 010|
+keepjumps 126
+normal! 023|
 wincmd w
 argglobal
-if bufexists("term://D:/my_projects/method-adams//11328:C:/Windows/system32/cmd.exe") | buffer term://D:/my_projects/method-adams//11328:C:/Windows/system32/cmd.exe | else | edit term://D:/my_projects/method-adams//11328:C:/Windows/system32/cmd.exe | endif
+if bufexists("term://D:/my_projects/method-adams//9384:C:/Windows/system32/cmd.exe") | buffer term://D:/my_projects/method-adams//9384:C:/Windows/system32/cmd.exe | else | edit term://D:/my_projects/method-adams//9384:C:/Windows/system32/cmd.exe | endif
 if &buftype ==# 'terminal'
-  silent file term://D:/my_projects/method-adams//11328:C:/Windows/system32/cmd.exe
+  silent file term://D:/my_projects/method-adams//9384:C:/Windows/system32/cmd.exe
 endif
-balt method_adams.c
+balt run.cmd
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -121,28 +93,29 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1076 - ((21 * winheight(0) + 11) / 22)
+let s:l = 10038 - ((37 * winheight(0) + 19) / 38)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1076
+keepjumps 10038
 normal! 028|
 wincmd w
 3wincmd w
-exe '1resize ' . ((&lines * 54 + 39) / 79)
-exe 'vert 1resize ' . ((&columns * 135 + 135) / 271)
-exe '2resize ' . ((&lines * 22 + 39) / 79)
-exe 'vert 2resize ' . ((&columns * 135 + 135) / 271)
-exe '3resize ' . ((&lines * 54 + 39) / 79)
-exe 'vert 3resize ' . ((&columns * 135 + 135) / 271)
-exe '4resize ' . ((&lines * 22 + 39) / 79)
-exe 'vert 4resize ' . ((&columns * 135 + 135) / 271)
+exe 'vert 1resize ' . ((&columns * 117 + 135) / 271)
+exe '2resize ' . ((&lines * 38 + 39) / 79)
+exe 'vert 2resize ' . ((&columns * 153 + 135) / 271)
+exe '3resize ' . ((&lines * 38 + 39) / 79)
+exe 'vert 3resize ' . ((&columns * 153 + 135) / 271)
 tabnext 1
+badd +51 AdamsMoulton.py
+badd +0 ./
 badd +1 Figure_1.png
-badd +83 AdamsMoulton.py
-badd +111 method_adams.c
-badd +0 term://D:/my_projects/method-adams//11328:C:/Windows/system32/cmd.exe
-badd +0 term://D:/my_projects/method-adams//1776:C:/Windows/system32/cmd.exe
+badd +22 term://D:/my_projects/method-adams//1776:C:/Windows/system32/cmd.exe
+badd +96 method_adams.c
+badd +22 term://D:/my_projects/method-adams//11328:C:/Windows/system32/cmd.exe
+badd +98 term://D:/my_projects/method-adams//9384:C:/Windows/system32/cmd.exe
+badd +202 term://D:/my_projects/method-adams//12884:C:/Windows/system32/cmd.exe
+badd +2 run.cmd
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -156,7 +129,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
