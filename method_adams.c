@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <math.h>
 #include <stdlib.h>
+#include <math.h>
 
 double sqr(double x)
 {
@@ -17,12 +17,19 @@ double dfy(double t, double y)
     return t - 3.2;
 }
 
-double solution(double t, double t0, double y0)
+//def solution(t, t0, y0):
+//    C = y0 * np.exp(-(t0 - 3.2)**2/2)-np.sin(4*t0**2)
+//    return np.exp((t-3.2)**2/2)*np.sin(4*t**2) + C
+double* solution(double* t, double t0, double y0, int n)
 {
-    double C = y0 * exp(-sqr(t0 - 3.2)/2) * cos(4*sqr(t0));
-    return exp(sqr(t-3.2)/2) * sin(4 * sqr(2)) + C;
+    double C = y0 * exp(-((t0 - 3.2)*(t0 - 3.2))/2)-sin(4*t0*t0);
+    double* res = (double*)malloc(sizeof(double)*n);
+    for (int i = 0; i < n; i++)
+    {
+        res[i] = exp((t[i] - 3.2)*(t[i] - 3.2)/2)*sin(4*t[i]*t[i]) + C;
+    }
+    return res;
 }
-
 
 double* linspace(double a, double b, int n)
 {
@@ -149,9 +156,15 @@ int main()
     double y0 = 0.75;
     double* t = linspace(0, tn, n);
     double* y = AdamsMoulton(t0, tn, y0, n);
+    //write to file
+    FILE *file = fopen("./results.txt", "w");
+    double* linspace_t = linspace(0, tn, n+1);
+    double* solve = solution(linspace_t, t0, y0, n);
     for (int i = 0; i < n; i++)
     {
-    printf("%0.15f \n", y[i]);
+        printf("%f %f %f \n", linspace_t[i], y[i], solve[i]);
+        fprintf(file, "%f %0.15f %0.15f \n", t[i], y[i], solve[i]);
     }
+
     return 0;
 }

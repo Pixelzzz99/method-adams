@@ -1,5 +1,5 @@
 import numpy as np 
-# from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 # from matplotlib.patches import Patch
 
 def f(t, y):
@@ -74,7 +74,7 @@ def AdamsMoulton(t0, y0, tn, n):
         y[k+1] = y[k] + h/24 * (9 * K0 + 19 * K1 - 5 * K2 + K3)
     return y
 
-
+    
 def main():
     fg = 1
     n = 300
@@ -83,19 +83,21 @@ def main():
     y0 = 0.75
     t = np.linspace(0, tn, n+1)
     yb = AdamsMoulton(t0, y0, tn, n)
-    for i in range(0, n+1):
-        print('%.15f' % yb[i])
+    #for i in range(0, n+1):
+    #    print('%.15f' % yb[i])
     # ypc = AdamsMoulton(t0, y0, tn, n)
-    # plt.figure(fg)
-    # plt.plot(t, yb, 'red', label='Backward Euler')
-    # plt.plot(t, ypc, 'black', label='Predictor/Corrector 3/4')
-    # t = np.linspace(0, tn, 401)
-    # ysol = solution(t, t0, y0)
-    # plt.plot(t, ysol, color="green", label='Exact')
-    # plt.title('n = %d' % n)
-    # plt.axis([0, tn, -60, 40])
-    # plt.legend(loc='lower left')
-    # plt.show()
+
+    #plt.figure(fg)
+    #plt.plot(t, yb, 'red', label='Backward Euler')
+    #plt.plot(t, ypc, 'black', label='Predictor/Corrector 3/4')
+    t = np.linspace(0, tn, 401)
+    ysol = solution(t, t0, y0)
+    #show 15 symbols after 
+    plt.plot(t, ysol, color="green", label='Exact')
+    plt.title('n = %d' % n)
+    plt.axis([0, tn, -60, 40])
+    plt.legend(loc='lower left')
+    plt.show()
 
 if __name__ == '__main__':
     main()
